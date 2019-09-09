@@ -1,0 +1,61 @@
+.eventsCalendar__section {
+  padding: 1em 2em;
+  background-color: white;
+}
+
+.buttons__wrap--center {
+  justify-content: center;
+}
+
+.buttons__wrap--center > * {
+  margin: 0.5em;
+}
+
+.eventsCalendar__navigation {
+  cursor: pointer;
+  color: #00698c;
+  font-weight: 600;
+}
+
+.eventsCalendar__button--register {
+  margin: 1em 0;
+}
+
+.eventCalendar__event {
+  padding: 1em;
+  margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.eventCalendar__event:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.eventCalendar__event--data {
+  width: 100%;
+}
+
+.eventCalendar__event--data > * {
+  margin: 0.5em;
+}
+
+@media screen and (min-width: 568px) {
+  .eventCalendar__event {
+    padding: 1em;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .eventCalendar__event--data {
+    width: 50%;
+  }
+
+  .eventsCalendar__button--register {
+    margin: 0;
+  }
+}
+
+/*# sourceMappingURL=/App.dc58c3d0.css.map */
