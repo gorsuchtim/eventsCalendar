@@ -8,7 +8,37 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Test</h1>
+    <main class="page__main">
+      <section class="eventsCalendar__section">
+        <!-- Dynamic: Month name is set in javascript -->
+        <h2 class="h--light eventsCalendar__monthName"></h2>
+
+        <p>
+          Lorem ipsum dolor sit amet,consectetur adipiscing elit,sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+          veniam,quis nostrud exercitation ulamco laboris nisi ut aliquip ex ea
+          com- modo consequat.
+        </p>
+
+        <div class="buttons__wrap buttons__wrap--center">
+          <button
+            class="eventsCalendar__navigation eventsCalendar__navigation--previous"
+          >
+            Prev
+          </button>
+          <p class="eventsCalendar__monthName u-textBold"></p>
+          <button
+            class="eventsCalendar__navigation eventsCalendar__navigation--next"
+          >
+            Next
+          </button>
+        </div>
+
+        <!-- Dynamic: All events are populated via javascript -->
+        <div class="eventsCalendar__events"></div>
+      </section>
+    </main>
+    <script src="./js/lib/jquery-3.2.1.min.js"></script>
     <script src="./js/App.js"></script>
   </body>
 </html>
