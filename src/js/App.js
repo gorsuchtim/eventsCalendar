@@ -17,10 +17,11 @@ const eventsCalendar = {
   init() {
     const calendar = document.querySelector(".eventsCalendar__section");
     if (utilities.testForElement(calendar)) {
-      // if (handleDomMonths()) {
-      //     if (handleCalendar()) {
-      //       setMonthNavEvents();
-      // }
+      if (handleDomMonths()) {
+        console.log("yay");
+        //     if (handleCalendar()) {
+        //       setMonthNavEvents();
+      }
     }
   }
 };

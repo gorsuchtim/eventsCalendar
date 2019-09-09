@@ -11129,8 +11129,12 @@ var validateDomMonths = function validateDomMonths(toValidate) {
 };
 
 var handleDomMonths = function handleDomMonths(updatedMonthName) {
-  var monthNames = [].slice.call(document.querySelectorAll(".eventsCalendar__monthName")).map(function (element) {
-    return element.textContent = updatedMonthName || _Utilities.default.getMonthName();
+  // Get all instances of month name in the DOM and update to month name passed to this
+  //function OR current month name via getMonthName()
+  var monthNames = _Utilities.default.toArray(document.querySelectorAll(".eventsCalendar__monthName"));
+
+  monthNames.map(function (monthName) {
+    return monthName.textContent = updatedMonthName || _Utilities.default.getMonthName();
   }); // Return true if every index in monthNames returns with a value and not as undefined
 
   return monthNames.every(validateDomMonths);
@@ -11163,10 +11167,11 @@ var eventsCalendar = {
   init: function init() {
     var calendar = document.querySelector(".eventsCalendar__section");
 
-    if (_Utilities.default.testForElement(calendar)) {// if (handleDomMonths()) {
-      //     if (handleCalendar()) {
-      //       setMonthNavEvents();
-      // }
+    if (_Utilities.default.testForElement(calendar)) {
+      if ((0, _handleDomMonths.default)()) {
+        console.log("yay"); //     if (handleCalendar()) {
+        //       setMonthNavEvents();
+      }
     }
   }
 };
