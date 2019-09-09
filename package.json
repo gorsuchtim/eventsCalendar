@@ -1,14 +1,11 @@
 {
-  "name": "projecttemplate",
+  "name": "eventscalendar",
   "version": "1.0.0",
-  "description": "File and folder structure, tooling requirements for projects",
+  "description": "Dynamically loaded events via json",
   "main": "index.js",
   "scripts": {
     "build": "parcel build src/index.htm",
     "dev": "parcel src/index.htm",
-    "format": "npm run lint && npm run prettier",
-    "prettier": "prettier --write \"src/**/*.{js,jsx,css,htm,json}\"",
-    "prettier:check": "prettier --list-different \"src/**/*.{js,jsx,css,htm,json}\"",
     "lint": "eslint \"src/js/**/*.{js,jsx}\""
   },
   "author": "Tim Gorsuch",
@@ -18,7 +15,6 @@
     "babel-eslint": "^10.0.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-prettier": "^3.1.0",
@@ -26,12 +22,7 @@
     "prettier": "^1.18.2"
   },
   "dependencies": {
-    "@reach/router": "^1.2.1",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3",
-    "petfinder-client": "^1.0.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "eslint-plugin-jsx-a11y": "^6.2.3"
   }
 }
