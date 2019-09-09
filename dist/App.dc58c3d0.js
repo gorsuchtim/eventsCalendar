@@ -11142,7 +11142,356 @@ var handleDomMonths = function handleDomMonths(updatedMonthName) {
 
 var _default = handleDomMonths;
 exports.default = _default;
-},{"../Utilities/Utilities":"js/Utilities/Utilities.js"}],"js/App.js":[function(require,module,exports) {
+},{"../Utilities/Utilities":"js/Utilities/Utilities.js"}],"js/Templates/EventTemplate.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var EventTemplate = {
+  wrap: {
+    type: 'div',
+    content: '',
+    appendTo: document.querySelector('.eventsCalendar__events'),
+    attrs: {
+      class: 'eventCalendar__event'
+    },
+    setEvent: {},
+    addChild: {}
+  },
+  detailsWrap: {
+    type: 'div',
+    content: '',
+    appendTo: '',
+    attrs: {
+      class: 'eventCalendar__event--data'
+    },
+    setEvent: {},
+    addChild: {}
+  },
+  register: {
+    type: 'a',
+    content: 'Register',
+    appendTo: '',
+    attrs: {
+      class: 'button button--primary eventsCalendar__button--register u-text--upperCase',
+      href: '/investing.htm'
+    },
+    setEvent: {},
+    addChild: {}
+  },
+  details: [{
+    type: 'h3',
+    content: '',
+    appendTo: '',
+    attrs: {
+      class: 'u-textBold'
+    },
+    setEvent: {},
+    addChild: {}
+  }, {
+    type: 'p',
+    content: '',
+    appendTo: '',
+    attrs: {},
+    setEvent: {},
+    addChild: {}
+  }, {
+    type: 'p',
+    content: '',
+    appendTo: '',
+    attrs: {},
+    setEvent: {},
+    addChild: {}
+  }, {
+    type: 'p',
+    content: '',
+    appendTo: '',
+    attrs: {},
+    setEvent: {},
+    addChild: {}
+  }]
+};
+var _default = EventTemplate;
+exports.default = _default;
+},{}],"js/Templates/ErrorMessage.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var ErrorMessage = {
+  type: 'p',
+  content: 'There are no events listed for this month',
+  appendTo: '',
+  attrs: {
+    class: 'eventCalendar__error--message eventsCalendar__monthName'
+  },
+  setEvent: {},
+  addChild: {}
+};
+var _default = ErrorMessage;
+exports.default = _default;
+},{}],"js/Utilities/BuildElement.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Utilities = _interopRequireDefault(require("./Utilities"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/* BuildElement */
+var BuildElement =
+/*#__PURE__*/
+function () {
+  function BuildElement(type, content, appendTo, attrs, setEvent, addChild) {
+    _classCallCheck(this, BuildElement);
+
+    this.type = type;
+    this.content = content;
+    this.appendTo = appendTo;
+    this.attrs = attrs;
+    this.setEvent = setEvent;
+    this.addChild = addChild;
+  }
+
+  _createClass(BuildElement, [{
+    key: "addEvents",
+    value: function addEvents(element) {
+      var ev = this.setEvent;
+      element.addEventListener(ev.functionType, function () {
+        ev.functionName(ev.args);
+      });
+    }
+  }, {
+    key: "append",
+    value: function append(element) {
+      this.appendTo.appendChild(element);
+    }
+  }, {
+    key: "appendChild",
+    value: function appendChild(parent) {
+      this.addChild.forEach(function (child) {
+        if (child.appendTo === "") {} //child.appendTo = parent;
+        //elementFactory.init(child);
+
+      });
+    }
+  }, {
+    key: "build",
+    value: function build() {
+      var elementToBuild = _Utilities.default.setAttributes(document.createElement(this.type), this.attrs);
+
+      elementToBuild.innerHTML = this.content;
+      return elementToBuild;
+    }
+  }]);
+
+  return BuildElement;
+}();
+/* ---------------------
+Element Factory
+----------------------*/
+
+
+var elementFactory = {
+  init: function init() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var toBuild = elementFactory.checkForObj(args);
+    var newElement = elementFactory.buildElement(toBuild);
+    return newElement;
+  },
+  checkForObj: function checkForObj(arg) {
+    if (arg[0].hasOwnProperty("type")) {
+      return arg[0];
+    } else {
+      var template = elementFactory.buildObjectTemplate(arg);
+      return template;
+    }
+  },
+  buildObjectTemplate: function buildObjectTemplate(argArray) {
+    var template = {
+      type: argArray[0],
+      content: argArray[1],
+      appendTo: argArray[2],
+      attrs: argArray[3],
+      setEvent: argArray[4],
+      addChild: argArray[5]
+    };
+    return template;
+  },
+  buildElement: function buildElement(toBuild) {
+    var elementToBuild = new BuildElement(toBuild.type, toBuild.content, toBuild.appendTo, toBuild.attrs, toBuild.setEvent, toBuild.addChild);
+    var newElement = elementToBuild.build();
+
+    if (!_Utilities.default.isEmptyObj(elementToBuild.setEvent)) {
+      elementToBuild.addEvents(newElement);
+    }
+
+    if (!_Utilities.default.isEmptyObj(elementToBuild.addChild)) {
+      elementToBuild.appendChild(newElement);
+    }
+
+    elementToBuild.append(newElement);
+    return newElement;
+  }
+};
+var _default = elementFactory;
+exports.default = _default;
+},{"./Utilities":"js/Utilities/Utilities.js"}],"js/Handlers/handleValidation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _EventTemplate = _interopRequireDefault(require("../Templates/EventTemplate"));
+
+var _ErrorMessage = _interopRequireDefault(require("../Templates/ErrorMessage"));
+
+var _BuildElement = _interopRequireDefault(require("../Utilities/BuildElement"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var buildErrorMessage = function buildErrorMessage() {
+  var wrap = _BuildElement.default.init(_EventTemplate.default.wrap);
+
+  _ErrorMessage.default.appendTo = wrap;
+
+  _BuildElement.default.init(_ErrorMessage.default);
+};
+
+var handleValidation = function handleValidation(checkFile) {
+  if (checkFile.status === 404) {
+    buildErrorMessage();
+    return false;
+  } else {
+    return true;
+  }
+};
+
+var _default = handleValidation;
+exports.default = _default;
+},{"../Templates/EventTemplate":"js/Templates/EventTemplate.js","../Templates/ErrorMessage":"js/Templates/ErrorMessage.js","../Utilities/BuildElement":"js/Utilities/BuildElement.js"}],"js/Handlers/handleCheckDate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var handleCheckDate = function handleCheckDate(monthEvent) {
+  var eventMonth = _Utilities.default.getMonthFromString(monthEvent[1]);
+
+  var eventDay = Number(monthEvent[2].slice(0, -2));
+  var currentMonth = Number(_Utilities.default.getMonth());
+  var currentDay = Number(_Utilities.default.getDate());
+
+  if (currentMonth < eventMonth) {
+    return true;
+  } else if (currentMonth === eventMonth) {
+    if (currentDay <= eventDay) {
+      return true;
+    }
+  } else {
+    return false;
+  }
+};
+
+var _default = handleCheckDate;
+exports.default = _default;
+},{"../Utilities/Utilities":"js/Utilities/Utilities.js"}],"js/Handlers/handleCalendar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Utilities = _interopRequireDefault(require("../Utilities/Utilities"));
+
+var _App = _interopRequireDefault(require("../App"));
+
+var _handleValidation = _interopRequireDefault(require("./handleValidation"));
+
+var _handleCheckDate = _interopRequireDefault(require("./handleCheckDate"));
+
+var _EventTemplate = _interopRequireDefault(require("../Templates/EventTemplate"));
+
+var _BuildElement = _interopRequireDefault(require("../Utilities/BuildElement"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var builder = function builder(toBuild, appendTo) {
+  if (toBuild.length) {
+    toBuild.forEach(function (build) {
+      build.appendTo = appendTo;
+      return _BuildElement.default.init(build);
+    });
+  } else {
+    toBuild.appendTo = appendTo;
+    return _BuildElement.default.init(toBuild);
+  }
+};
+
+var populateEventTemplateDetails = function populateEventTemplateDetails(monthEvent) {
+  var eventDetailsContent = _EventTemplate.default.details.map(function (detail, index) {
+    detail.content = monthEvent[index];
+    return detail;
+  });
+
+  return eventDetailsContent;
+}; // Return requested/arg month events OR current month events
+
+
+var getEvents = function getEvents(eventsToGet) {
+  return eventsToGet || _Utilities.default.getFile("".concat(_App.default.eventsFilePath).concat(_Utilities.default.getMonthName(), ".js"));
+};
+
+var handleCalendar = function handleCalendar(eventsToGet) {
+  if ((0, _handleValidation.default)(getEvents(eventsToGet))) {
+    var monthEvents = _Utilities.default.parseFile(getEvents(eventsToGet).responseText);
+
+    monthEvents.forEach(function (monthEvent) {
+      builder(populateEventTemplateDetails(Object.keys(monthEvent).map(function (e) {
+        return monthEvent[e];
+      })), builder(_EventTemplate.default.detailsWrap, builder(_EventTemplate.default.wrap, document.querySelector(".eventsCalendar__events"))));
+
+      if (monthEvent.register !== "") {
+        if ((0, _handleCheckDate.default)(monthEvent.date.split(" "))) {
+          _EventTemplate.default.register.attrs.href = monthEvent.register;
+          builder(_EventTemplate.default.register, _EventTemplate.default.detailsWrap.appendTo);
+        }
+      }
+    });
+  }
+
+  return true;
+};
+
+var _default = handleCalendar;
+exports.default = _default;
+},{"../Utilities/Utilities":"js/Utilities/Utilities.js","../App":"js/App.js","./handleValidation":"js/Handlers/handleValidation.js","./handleCheckDate":"js/Handlers/handleCheckDate.js","../Templates/EventTemplate":"js/Templates/EventTemplate.js","../Utilities/BuildElement":"js/Utilities/BuildElement.js"}],"js/App.js":[function(require,module,exports) {
 "use strict";
 
 require("../css/scss/style.scss");
@@ -11153,30 +11502,30 @@ var _Utilities = _interopRequireDefault(require("./Utilities/Utilities"));
 
 var _handleDomMonths = _interopRequireDefault(require("./Handlers/handleDomMonths"));
 
+var _handleCalendar = _interopRequireDefault(require("./Handlers/handleCalendar"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Import scss
 // Import jquery
 window.$ = window.jQuery = _jquery.default; // Import components
 
-// import handleCalendar from "./Handlers/handleCalendar";
-// import handleValidation from "./Handlers/handleValidation";
 // import setMonthNavEvents from "./Handlers/handleMonthNavigation";
 var eventsCalendar = {
-  eventsFilePath: "/js/Components/EventsCalendar/Calendar/",
+  eventsFilePath: "/src/js/Calendar/",
   init: function init() {
     var calendar = document.querySelector(".eventsCalendar__section");
 
     if (_Utilities.default.testForElement(calendar)) {
       if ((0, _handleDomMonths.default)()) {
-        console.log("yay"); //     if (handleCalendar()) {
-        //       setMonthNavEvents();
+        if ((0, _handleCalendar.default)()) {// setMonthNavEvents();
+        }
       }
     }
   }
 };
 eventsCalendar.init();
-},{"../css/scss/style.scss":"css/scss/style.scss","jquery":"../node_modules/jquery/dist/jquery.js","./Utilities/Utilities":"js/Utilities/Utilities.js","./Handlers/handleDomMonths":"js/Handlers/handleDomMonths.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../css/scss/style.scss":"css/scss/style.scss","jquery":"../node_modules/jquery/dist/jquery.js","./Utilities/Utilities":"js/Utilities/Utilities.js","./Handlers/handleDomMonths":"js/Handlers/handleDomMonths.js","./Handlers/handleCalendar":"js/Handlers/handleCalendar.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -11204,7 +11553,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61097" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62933" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

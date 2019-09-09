@@ -1,5 +1,5 @@
 "use strict";
-import utilities from "/Utilities";
+import utilities from "./Utilities";
 
 /* BuildElement */
 class BuildElement {
