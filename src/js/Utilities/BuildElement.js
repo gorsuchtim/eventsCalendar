@@ -1,5 +1,5 @@
-'use strict';
-import utilities from '/utilities';
+"use strict";
+import utilities from "/Utilities";
 
 /* BuildElement */
 class BuildElement {
@@ -13,7 +13,7 @@ class BuildElement {
   }
   addEvents(element) {
     const ev = this.setEvent;
-    element.addEventListener(ev.functionType, function () {
+    element.addEventListener(ev.functionType, function() {
       ev.functionName(ev.args);
     });
   }
@@ -21,8 +21,8 @@ class BuildElement {
     this.appendTo.appendChild(element);
   }
   appendChild(parent) {
-    this.addChild.forEach(function (child) {
-      if (child.appendTo === '') {
+    this.addChild.forEach(function(child) {
+      if (child.appendTo === "") {
         //child.appendTo = parent;
       }
       //elementFactory.init(child);
@@ -46,10 +46,9 @@ const elementFactory = {
     const toBuild = elementFactory.checkForObj(args);
     const newElement = elementFactory.buildElement(toBuild);
     return newElement;
-
   },
   checkForObj(arg) {
-    if (arg[0].hasOwnProperty('type')) {
+    if (arg[0].hasOwnProperty("type")) {
       return arg[0];
     } else {
       const template = elementFactory.buildObjectTemplate(arg);

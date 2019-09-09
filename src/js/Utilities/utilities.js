@@ -1,8 +1,8 @@
-'use strict'
+"use strict";
 // this = !this
 const utilities = {
   ariaToggle(element, attr) {
-    return element.setAttribute(attr, element.getAttribute(attr) == 'false');
+    return element.setAttribute(attr, element.getAttribute(attr) == "false");
   },
   class_add(element, ...classNames) {
     classNames.forEach(className => element.classList.add(className));
@@ -13,22 +13,22 @@ const utilities = {
     return element;
   },
   getMonth() {
-    const date = new Date();
+    var date = new Date();
     return date.getMonth();
   },
   getDate() {
-    const date = new Date();
+    var date = new Date();
     return date.getDate();
   },
   getMonthName() {
-    const date = new Date();
-    return date.toLocaleString('en-us', { month: 'long' });
+    var date = new Date();
+    return date.toLocaleString("en-us", { month: "long" });
   },
   getFile(filePath) {
-    const fileToGet = $.ajax({
-      type: 'Get',
+    var fileToGet = $.ajax({
+      type: "Get",
       url: filePath,
-      async: false,
+      async: false
     });
     return fileToGet;
   },
@@ -36,14 +36,14 @@ const utilities = {
     return new Date(Date.parse(month + " 1, 2012")).getMonth();
   },
   iOSTest() {
-    const iDevices = [
-      'iPad Simulator',
-      'iPhone Simulator',
-      'iPod Simulator',
-      'iPad',
-      'iPhone',
-      'iPod',
-      'MacIntel'
+    var iDevices = [
+      "iPad Simulator",
+      "iPhone Simulator",
+      "iPod Simulator",
+      "iPad",
+      "iPhone",
+      "iPod",
+      "MacIntel"
     ];
     if (!!navigator.platform) {
       while (iDevices.length) {
@@ -55,7 +55,10 @@ const utilities = {
     return false;
   },
   iOSSafariTest() {
-    utilities.iOSTest() && navigator.userAgent.toLowerCase().indexOf('chrome') == -1 ? true : false;
+    utilities.iOSTest() &&
+    navigator.userAgent.toLowerCase().indexOf("chrome") == -1
+      ? true
+      : false;
   },
   isEmptyObj(obj) {
     if (Object.keys(obj).length === 0 && obj.constructor === Object) {
@@ -65,7 +68,7 @@ const utilities = {
     }
   },
   parseFile(fileName) {
-    const parsedFile = JSON.parse(fileName);
+    var parsedFile = JSON.parse(fileName);
     return parsedFile;
   },
   setAttributes(el, attrs) {
@@ -78,18 +81,18 @@ const utilities = {
     if (element !== null) {
       return true;
     }
+  },
+  toArray(list) {
+    if (Array.from) {
+      return Array.from(list);
+    } else {
+      var newArray = [];
+      for (var i = 0; i < list.length; i++) {
+        newArray.push(list[i]);
+      }
+      return newArray;
+    }
   }
-}
+};
 
 export default utilities;
-
-/*
-    function reqListener() {
-      return this.responseText;
-    }
-
-    const getFile = new XMLHttpRequest();
-    getFile.addEventListener('load', reqListener);
-    getFile.open('GET', filePath);
-    getFile.send();
-    */
