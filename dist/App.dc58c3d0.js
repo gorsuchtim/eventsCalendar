@@ -11518,7 +11518,8 @@ var eventsCalendar = {
 
     if (_Utilities.default.testForElement(calendar)) {
       if ((0, _handleDomMonths.default)()) {
-        if ((0, _handleCalendar.default)()) {// setMonthNavEvents();
+        if ((0, _handleCalendar.default)()) {
+          setMonthNavEvents();
         }
       }
     }
@@ -11553,7 +11554,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62933" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63736" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

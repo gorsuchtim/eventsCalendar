@@ -18,7 +18,7 @@ const eventsCalendar = {
     if (utilities.testForElement(calendar)) {
       if (handleDomMonths()) {
         if (handleCalendar()) {
-          // setMonthNavEvents();
+          setMonthNavEvents();
         }
       }
     }
