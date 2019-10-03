@@ -24,14 +24,6 @@ const utilities = {
     var date = new Date();
     return date.toLocaleString("en-us", { month: "long" });
   },
-  getFile(filePath) {
-    var fileToGet = $.ajax({
-      type: "Get",
-      url: filePath,
-      async: false
-    });
-    return fileToGet;
-  },
   getMonthFromString(month) {
     return new Date(Date.parse(month + " 1, 2012")).getMonth();
   },

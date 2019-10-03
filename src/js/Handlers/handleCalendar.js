@@ -1,65 +1,51 @@
 "use strict";
 
-import utilities from "../Utilities/Utilities";
-import App from "../App";
-import handleValidation from "./handleValidation";
-import handleCheckDate from "./handleCheckDate";
-import EventTemplate from "../Templates/EventTemplate";
-import elementFactory from "../Utilities/BuildElement";
+import Utilities from "../Utilities/Utilities";
+import EventsCalendar from "../EventsCalendar";
+import handleBuildEvent from "./handleBuildEvent";
+import handleBuildError from "./handleBuildError";
 
-const builder = (toBuild, appendTo) => {
-  if (toBuild.length) {
-    toBuild.forEach(build => {
-      build.appendTo = appendTo;
-      return elementFactory.init(build);
-    });
-  } else {
-    toBuild.appendTo = appendTo;
-    return elementFactory.init(toBuild);
-  }
-};
-
-const populateEventTemplateDetails = monthEvent => {
-  var eventDetailsContent = EventTemplate.details.map((detail, index) => {
-    detail.content = monthEvent[index];
-    return detail;
-  });
-  return eventDetailsContent;
-};
-
-// Return requested/arg month events OR current month events
-const getEvents = eventsToGet =>
-  eventsToGet ||
-  utilities.getFile(`${App.eventsFilePath}${utilities.getMonthName()}.js`);
+const getEvents = eventsToGet => eventsToGet || Utilities.getFile();
 
 const handleCalendar = eventsToGet => {
-  if (handleValidation(getEvents(eventsToGet))) {
-    const monthEvents = utilities.parseFile(
-      getEvents(eventsToGet).responseText
-    );
-    monthEvents.forEach(monthEvent => {
-      builder(
-        populateEventTemplateDetails(
-          Object.keys(monthEvent).map(function(e) {
-            return monthEvent[e];
-          })
-        ),
-        builder(
-          EventTemplate.detailsWrap,
-          builder(
-            EventTemplate.wrap,
-            document.querySelector(".eventsCalendar__events")
-          )
-        )
-      );
-      if (monthEvent.register !== "") {
-        if (handleCheckDate(monthEvent.date.split(" "))) {
-          EventTemplate.register.attrs.href = monthEvent.register;
-          builder(EventTemplate.register, EventTemplate.detailsWrap.appendTo);
-        }
-      }
-    });
-  }
+  fetch(
+    eventsToGet ||
+      `${EventsCalendar.eventsFilePath}${Utilities.getMonthName()}.js`
+  ).then(data => {
+    if (data.status != 200) {
+      handleBuildError();
+    } else {
+      data
+        .json()
+        .then(data => data.forEach(monthEvent => handleBuildEvent(monthEvent)));
+    }
+  });
   return true;
 };
 export default handleCalendar;
+
+// ***** Fetch not supported in IE11: XMLHTttpRequest fallback:
+/*
+var xhr = new XMLHttpRequest();
+
+xhr.open(
+  "GET",
+  eventsToGet ||
+    `${EventsCalendar.eventsFilePath}${Utilities.getMonthName()}.js`,
+  false
+);
+
+xhr.onload = function() {
+  if (this.status != 200) {
+    handleBuildError();
+  } else {
+    var monthEvents = JSON.parse(this.responseText);
+    monthEvents.forEach(monthEvent => {
+      handleBuildEvent(monthEvent);
+    });
+  }
+};
+
+xhr.send();
+
+*/
