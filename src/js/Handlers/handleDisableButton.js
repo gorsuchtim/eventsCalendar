@@ -1,9 +1,9 @@
 "use strict";
 
-import utilities from "../Utilities/Utilities";
+import Utilities from "../Utilities/Utilities";
 
 var disableForwardNav = 11;
-var disableBackwardNav = utilities.getMonth() - 2;
+var disableBackwardNav = Utilities.getMonth() - 2;
 
 const checkForDisabled = navButtons => {
   navButtons.forEach(navButton => {
@@ -20,7 +20,7 @@ const disableButton = element => element.setAttribute("disabled", "true");
 
 const handleDisableButton = (element, navButtons, monthValue) =>
   checkForDisabled(navButtons)
-    ? monthValue === disableForwardNav || monthValue === disableBackwardNav
+    ? monthValue == disableForwardNav || monthValue == disableBackwardNav
       ? disableButton(element)
       : false
     : false;
