@@ -1,13 +1,12 @@
 "use strict";
 
-import utilities from "../Utilities/Utilities";
-import eventsCalendar from "../eventsCalendar";
+import Utilities from "../Utilities/Utilities";
+import EventsCalendar from "../EventsCalendar";
 import handleDomMonths from "./handleDomMonths";
 import handleCalendar from "./handleCalendar";
 import handleDisableButton from "./handleDisableButton";
-import handleValidation from "./handleValidation";
 
-var navButtons = utilities.toArray(
+const navButtons = Utilities.toArray(
   document.querySelectorAll(".eventsCalendar__navigation")
 );
 
@@ -26,7 +25,7 @@ const months = [
   "December"
 ];
 
-var currentMonthValue = utilities.getMonth();
+var currentMonthValue = Utilities.getMonth();
 
 const updateMonthValue = (element, monthValue) => {
   if (element.classList.contains("eventsCalendar__navigation--next")) {
@@ -36,7 +35,7 @@ const updateMonthValue = (element, monthValue) => {
   } else if (
     element.classList.contains("eventsCalendar__navigation--previous")
   ) {
-    if (monthValue > utilities.getMonth() - 2) {
+    if (monthValue > Utilities.getMonth() - 2) {
       monthValue--;
     }
   }
@@ -47,7 +46,7 @@ const updateMonthValue = (element, monthValue) => {
 const handleEventsNavigation = element => {
   currentMonthValue = updateMonthValue(element, currentMonthValue);
 
-  var monthValueElements = utilities.toArray(
+  var monthValueElements = Utilities.toArray(
     document.querySelectorAll("[monthvalue]")
   );
 
@@ -59,9 +58,7 @@ const handleEventsNavigation = element => {
   document.querySelector(".eventsCalendar__events").innerHTML = "";
 
   handleCalendar(
-    utilities.getFile(
-      `${eventsCalendar.eventsFilePath}${months[currentMonthValue]}.js`
-    )
+    `${EventsCalendar.eventsFilePath}${months[currentMonthValue]}.js`
   );
 };
 
