@@ -1,4 +1,6 @@
 // Import scss
 import "../css/scss/style.scss";
 
-eventsCalendar.init();
+import EventsCalendar from "./EventsCalendar";
+
+EventsCalendar.init();

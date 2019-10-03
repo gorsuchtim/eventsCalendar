@@ -6,7 +6,7 @@ import handleCalendar from "./Handlers/handleCalendar";
 import setMonthNavEvents from "./Handlers/handleMonthNavigation";
 
 const EventsCalendar = {
-  eventsFilePath: "/js/Components/EventsCalendar/Calendar/",
+  eventsFilePath: "/js/Calendar/",
   init() {
     const calendar = document.querySelector(".eventsCalendar__section");
     if (Utilities.testForElement(calendar)) {
