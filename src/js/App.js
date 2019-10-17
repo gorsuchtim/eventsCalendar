@@ -1,5 +1,5 @@
 // Import scss
-import "../css/scss/style.scss";
+import "../scss/style.scss";
 
 import EventsCalendar from "./EventsCalendar";
 
