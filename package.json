@@ -1,11 +1,14 @@
 {
   "name": "eventscalendar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Dynamically loaded events via json",
-  "main": "index.js",
+  "main": "src/js/App.js",
   "scripts": {
-    "build": "parcel build src/index.htm",
+    "build": "npm run format && parcel build src/js/App.js --out-dir build --out-file App.js",
     "dev": "parcel src/index.htm",
+    "format": "npm run lint && npm run prettier",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,css,htm,json}\"",
+    "prettier:check": "prettier --list-different \"src/**/*.{js,jsx,css,htm,json}\"",
     "lint": "eslint \"src/js/**/*.{js,jsx}\""
   },
   "author": "Tim Gorsuch",
@@ -25,7 +28,6 @@
   },
   "dependencies": {
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "jquery": "^3.4.1"
+    "eslint-plugin-jsx-a11y": "^6.2.3"
   }
 }
