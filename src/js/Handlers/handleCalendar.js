@@ -5,7 +5,7 @@ import EventsCalendar from "../EventsCalendar";
 import handleBuildEvent from "./handleBuildEvent";
 import handleBuildError from "./handleBuildError";
 
-const getEvents = eventsToGet => eventsToGet || Utilities.getFile();
+// const getEvents = eventsToGet => eventsToGet || Utilities.getFile();
 
 const handleCalendar = eventsToGet => {
   fetch(
